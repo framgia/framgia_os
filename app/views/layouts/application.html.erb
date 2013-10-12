@@ -32,6 +32,9 @@
 	                </li>
 <% if current_user.is_admin? %>
                   <li>
+                    <%= link_to "Orders page", framgiaers_path(show: "show_orders") %>
+                  </li>
+                  <li>
                     <%= link_to "Framgiaers page", framgiaers_path %>
                   </li>
 <% end %>

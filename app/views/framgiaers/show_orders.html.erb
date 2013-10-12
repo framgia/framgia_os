@@ -1,3 +1,4 @@
+<%= link_to "Apply All Order", framgiaers_path(apply: "deliver"), class: "btn btn-success" %>
 <h1>Delievery order</h1>
 <table class="table table-bordered table-striped">
 	<tr>
@@ -12,7 +13,7 @@
 	</tr>
 <% Order.where(state: "delievery").each do |order| %>
     <tr>
-      <td><%= order.user.name %></td>
+      <td><%= order.user.name %><br/><span class="label label-important"><%= "#{order.user.amount}VND" %></span></td>
       <td><%= order.m_food.name %></td>
       <td><%= order.m_food_option.name %></td>
       <td><%= order.m_food.price %></td>
@@ -45,7 +46,6 @@
 	  <th>Price</th>
 	  <th>Quantity</th>
 	  <th>Status</th>
-	  <th>Action</th>
 	  <th>Order at</th>
 	</tr>
 <% Order.where(state: "paid").each do |order| %>
@@ -55,13 +55,11 @@
       <td><%= order.m_food_option.name %></td>
       <td><%= order.m_food.price %></td>
       <td><%= order.quantity %></td>
-	  <td><span class="label label-success">Paid</span></td>
-      <td><%= link_to "Paid", framgiaers_path(apply: "paid", order_id: order.id), class: "btn btn-success" %></td>
+	    <td><span class="label label-success">Paid</span></td>
       <td><%= order.created_at.strftime("%Y/%m/%d %H:%M") %></td>
     </tr>
 <% end -%>
 	<tr>
-	  <td></td>
 	  <td></td>
 	  <td></td>
 	  <td></td>

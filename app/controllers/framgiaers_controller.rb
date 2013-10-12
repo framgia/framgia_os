@@ -2,11 +2,15 @@ class FramgiaersController < ApplicationController
   before_filter :checking_user
   def index
     @users = User.all
-    if params[:apply] == "deliever"
+    if params[:apply] == "deliver"
       Order.where(state: "init").all.each do |order|
-        order.deliever!
+        order.deliver!
       end
       redirect_to mypage_path
+    end
+    if params[:apply] == "deliver_one"
+      Order.find(params[:order_id]).deliver!
+      redirect_to framgiaers_path(show: "show_orders")
     end
     if params[:apply] == "paid"
       Order.find(params[:order_id]).paid!

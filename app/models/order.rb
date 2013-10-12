@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
     state :init
     state :paid
 
-    event :deliever! do
+    event :deliver! do
       transition :init => :delievery
     end
     event :paid! do

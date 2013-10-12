@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-<div class="page-header"><h1>AVAILABLE DRINKS</h1></div>
+  <div class="page-header"><h1>LET'S ORDER EVERYTHING!</h1></div>
 <div class="order">
 <% @m_foods.each do |m_food| %>
 <% if current_user.is_admin? || m_food.visibility? %>
@@ -29,7 +29,9 @@
 <% end %>
 <% end %>
   <br/>
-  <%= image_tag m_food.url, width: "300px", style: "border: 2px black solid" %><br/>
+<% if m_food.url %>
+  <%= image_tag m_food.url, width: "250px", style: "border: 2px black solid" %><br/>
+<% end %>
   Price: <span class="label label-success"><%= m_food.price %>VND</span><br/><br/>
 </div>
 <% end %>
@@ -54,6 +56,9 @@ TOTAL COST: <%= @orders.map{ |o| (o.m_food.price * o.quantity.to_i)}.inject{|sum
       <td><%= order.m_food.price %></td>
       <td><%= order.quantity %></td>
       <td>
+        <% if current_user.is_admin? %>
+          <%= link_to "Paid", framgiaers_path(apply: "deliver_one", order_id: order.id), class: "btn btn-success" %>
+        <% end %>
       	<% if current_user.is_admin? || (current_user.orders.include? order) %>
 	      	<%= link_to order_path(order), method: :delete, confirm: "Are you sure?" do %>
 	  			<i class="icon-trash"></i>
