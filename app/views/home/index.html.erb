@@ -22,17 +22,24 @@
         </div>
     </div>
   <br/>
+<table class="table table-bordered table-striped">
+  <tr>
+    <td>
+<% if m_food.url %>
+  <%= image_tag m_food.url, width: "250px", style: "border: 2px black solid" %><br/>
+<% end %>
+  Price: <span class="label label-success"><%= m_food.price %>VND</span><br/><br/>
+    </td>
+    <td>
 <% if current_user.is_admin? %>
   Current orders:<br/>
 <% m_food.m_food_options.each do |opt| %>
 <%= "#{opt.name}(#{Order.where(state: 'init').where(m_food_option_id: opt.id).sum(&:quantity)})" %><br/>
 <% end %>
 <% end %>
-  <br/>
-<% if m_food.url %>
-  <%= image_tag m_food.url, width: "250px", style: "border: 2px black solid" %><br/>
-<% end %>
-  Price: <span class="label label-success"><%= m_food.price %>VND</span><br/><br/>
+    </td>
+  </tr>
+</table>
 </div>
 <% end %>
 <% end %>

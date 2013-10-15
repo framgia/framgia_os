@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   protect_from_forgery
 
   def index
-    @m_foods = M::Food.all
+    @m_foods = M::Food.all.order("id")
     @orders = Order.where(state: "init").order("id desc").all
     if params[:visible].present?
       visible = params[:visible] == "enable" ? true : false

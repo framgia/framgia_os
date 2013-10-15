@@ -7,7 +7,9 @@
 <% @users.each do |user| %>
   <tr>
     <td><%= link_to user.name, user.facebook_link, target: "_target" %></td>
-    <td><%= user.amount %>VND</td>
+    <td>
+      <span class="label label-<%= user.amount < 0 ? 'danger' : 'success' %>"><%= user.amount %> VND</span>
+    </td>
     <td>
       <%= text_field_tag "#{user.id}", "", style: "margin: 0px" %>
       <%= link_to "Add", "#", id: "#{user.id}", method: :put, class: "btn btn-success" %>

@@ -1,7 +1,7 @@
 class FramgiaersController < ApplicationController
   before_filter :checking_user
   def index
-    @users = User.all
+    @users = User.all.order("amount DESC")
     if params[:apply] == "deliver"
       Order.where(state: "init").all.each do |order|
         order.deliver!
