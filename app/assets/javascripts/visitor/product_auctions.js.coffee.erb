@@ -1,5 +1,5 @@
 jQuery ->
-  window.auctionController = new Auction.Controller("<%= SOCKET_URL %>/websocket", true);
+  window.auctionController = new Auction.Controller("192.168.1.198:3000/websocket", true);
 
 window.Auction = {}
 
@@ -19,11 +19,10 @@ class Auction.Controller
     channel1.bind('get_winner', @channel1Message)
 
   channelMessage: (message) =>
-    $("#total_players").text("");
+    $(".ul-list-player").text("");
     i = message.length - 1
     while i >= 0
-      $("#total_players").append "<span>" + message[i] + "</span><br>"
+      $(".ul-list-player").append "<li>" + message[i] + "</li>"
       i--
   channel1Message: (message) =>
     $("#reverse_auction_winner").text "Winner reverse product aution!: " + message  if message.length > 0
-    

@@ -1,35 +1,60 @@
 <%= javascript_include_tag "visitor/product_auctions" %>
-<div>
-<% if ReverseAuction.get_winner @product_auction %>
-  <h3><i> winner: </i></h3>
-  <%= ReverseAuction.get_winner @product_auction %>
-<% end %>
-</div>
-<h2> <%= @product_auction.m_food.try :name %> </h2>
-<div id="winner">
-  <%= @winner %>
-</div>
-<div id="total_players">
-<% @reverse_auction_players.each do |user_name| %>
-  <span><%=user_name %> </span>
-  <br>
-<% end %>
-</div>
-<p>
-  <strong>Start</strong>
-  <%= @product_auction.start_time.strftime("%d/%m/%y %I:%M") %>
-  <strong>Finish</strong>
-  <%= @product_auction.end_time.strftime("%d/%m/%y %I:%M") %>
-</p>
-<div >
-<%= image_tag @product_auction.m_food.url %>
-</div>
-<p class="notice"></p>
-<div class="reverse_auction">
-<%= form_tag reverse_auctions_path, remote: true do %>
-  <%= hidden_field_tag :product_auction_id, @product_auction.id %>
-  <%= label_tag :price %>
-  <%= text_field_tag :price %>
-  <%= submit_tag "Submit" %>
-<% end %>
+<div class="row-fluid">
+  <div class="span6">
+    <% if ReverseAuction.get_winner @product_auction %>
+        <p id="user-winner">
+          <%=image_tag "star1.jpg" %> 
+          <br>
+          <span>Winner: <%= ReverseAuction.get_winner @product_auction %> </span>
+        </p>
+    <% end %>
+    <h2> <%= @product_auction.m_food.try :name %> </h2>
+    <p>
+      <strong>Start</strong>
+      <%= @product_auction.start_time.strftime("%d/%m/%y %I:%M") %>
+      <strong>Finish</strong>
+      <%= @product_auction.end_time.strftime("%d/%m/%y %I:%M") %>
+    </p>
+    <div >
+    <%= image_tag @product_auction.m_food.url, class: "img-rounded" %>
+    </div>
+    <p class="notice"></p>
+    <div class="reverse_auction">
+    <%= form_tag reverse_auctions_path, remote: true do %>
+      <%= hidden_field_tag :product_auction_id, @product_auction.id %>
+      <%= label_tag :price %>
+      <%= text_field_tag :price %>
+      <%= submit_tag "Submit", class: "submit-button"%>
+    <% end %>
+    </div>    
+  </div>
+
+  <div class="span3">
+      <div class="">
+        <h5 class="center">Prices</h5>
+        <p>
+            <ul class="lst-price" >
+              <% @owner_prices.each_with_index do |pr, index| %>
+                <li><%= pr.price %> $ </li>
+              <% end %>
+            </ul>
+        </p>
+    </div>
+  </div>
+
+  <div class="span3">
+      <div class="total_player">
+        <h5 class="center">Players</h5>
+        <p>
+          <div id="total_players">
+            <ul class="ul-list-player">
+              <% @reverse_auction_players.each_with_index do |user_name, index| %>
+                <li><%=user_name %> </li>
+              <% end %>
+            </ul>
+          </div>
+        </p>
+    </div>
+  </div>
+
 </div>

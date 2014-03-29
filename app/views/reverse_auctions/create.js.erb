@@ -2,4 +2,5 @@
   $(".notice").text(@error);
 <% else %>
   $(".notice").text("Reverse auction: " + <%= @reverse_auction.price %>);
+  $(".lst-price").append( "<li>"+  <%= @reverse_auction.price %> +" $ </li>");
 <% end %>

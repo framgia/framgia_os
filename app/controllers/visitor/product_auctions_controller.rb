@@ -8,5 +8,7 @@ class Visitor::ProductAuctionsController < ApplicationController
   def show
     @product_auction = ProductAuction.find params[:id]
     @reverse_auction_players = ReverseAuction.player_names(@product_auction.id).uniq
+
+    @owner_prices = ReverseAuction.by_product_auction_id(@product_auction.id).where(user_id: current_user.id)
   end
 end
